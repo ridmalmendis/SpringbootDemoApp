@@ -62,7 +62,7 @@ public class feedbackimpl implements feedbackservices {
     @Override
    public void deleteFeedback(String FullName) throws IllegalAccessException {
         if (FullName.isEmpty()) { throw new IllegalArgumentException("Username is not provided to delete the user");
-        }
+        }//
 
        FeedbackDTO feedback = getFeedbackByFullname(FullName);
         fer.delete(feedback);
