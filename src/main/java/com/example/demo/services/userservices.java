@@ -14,5 +14,5 @@ public interface userservices {
 
     void insertUser(userDTO user);
 
-    void deleteUser(String username) throws IllegalAccessException;
+   void deleteUser(String username) throws IllegalAccessException;
 }

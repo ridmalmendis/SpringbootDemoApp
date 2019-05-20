@@ -11,5 +11,5 @@ public interface userrepo extends JpaRepository<userDTO,String> {
      List<userDTO> findByUsername(String username) ;
 
 
-    // List<userDTO> findByType(UserType type);
+     List<userDTO> findByType(UserType type);
 }

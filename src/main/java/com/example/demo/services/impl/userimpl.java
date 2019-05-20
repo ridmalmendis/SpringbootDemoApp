@@ -72,19 +72,19 @@ public class userimpl implements userservices {
 
         if(username.isEmpty()) {
             throw new IllegalArgumentException("Username is not provided to delete the user");
-        }
+       }
 
-        userDTO user = getUserByUsername(username);
+       userDTO user = getUserByUsername(username);
         userrepo.delete(user);
 
 
     }
-    private userDTO getUserByUsername(String username) throws IllegalAccessException {
+   private userDTO getUserByUsername(String username) throws IllegalAccessException {
         List<userDTO> userDTOList1 = userrepo.findByUsername(username);
 
-        if(userDTOList1 == null || userDTOList1.size() == 0) {
+       if(userDTOList1 == null || userDTOList1.size() == 0) {
             throw new IllegalAccessException(username + ", Invalid username");
-        }
+       }
         return userDTOList1.get(0);
     }
     private String generatePassword() {
