@@ -53,11 +53,11 @@ public class userimpl implements userservices {
             user.setUsername(username);
             user.setPassword(generatePassword());
 
-            if(user.getType() == UserType.Manager) {
-                user.setId("MNG" + timestamp.getTime());
+            if(user.getType() == UserType.seller) {
+                user.setId("SEL" + timestamp.getTime());
 
             } else {
-                user.setId("SRV" + timestamp.getTime());
+                user.setId("BUY" + timestamp.getTime());
             }
             userrepo.save(user);
 
