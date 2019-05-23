@@ -3,14 +3,18 @@ package com.example.demo.services;
 import com.example.demo.model.FeedbackDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface feedbackservices {
 
-    List<FeedbackDTO> findAllFeedback();
+    List<FeedbackDTO> findAllFeedbacks();
 
-    String UpdateFeedback(FeedbackDTO feedbackdata);
+    String saveFeedbacks(FeedbackDTO feedbackData);
 
-    void insertFeedback(FeedbackDTO feedbackDTO);
+    String updateFeedback(FeedbackDTO newfeedbackData);
 
-    void deleteFeedback(String uname) throws IllegalAccessException;
+    Optional<FeedbackDTO> findByFullName(int fid);
+
+    String dltByFullName(Integer fid);
+
 }

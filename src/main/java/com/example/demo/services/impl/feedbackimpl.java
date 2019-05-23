@@ -9,72 +9,64 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class feedbackimpl implements feedbackservices {
+public class feedbackimpl implements feedbackservices{
 
     @Autowired
-    private feedbackrepo fer;
+    private feedbackrepo feedbackrepo;
 
     @Override
-    public List<FeedbackDTO> findAllFeedback() {
-        List<FeedbackDTO> allfeedbacks = fer.findAll();
-        return allfeedbacks;
+    public List<FeedbackDTO> findAllFeedbacks() {
+
+        List<FeedbackDTO> allFeedbacks = feedbackrepo.findAll();
+        return allFeedbacks;
     }
 
     @Override
-    public String UpdateFeedback(FeedbackDTO feedbackdata) {
+    public String saveFeedbacks(FeedbackDTO feedbackData) {
+        feedbackrepo.save(feedbackData);
+
+        return "Successfully Saved.";
+    }
+
+    @Override
+    public String updateFeedback(FeedbackDTO newfeedbackData) {
 
         String msg = null;
-        if (feedbackdata.getId() != null) {
-
-            fer.save(feedbackdata);
-            msg = "updated";
-        } else {
-            msg = "error";
+        if(newfeedbackData.getfFullName() != null)
+        {
+            feedbackrepo.save(newfeedbackData);
+            msg = "Successfully Updated.";
+        } else
+        {
+            msg = "Update Error";
         }
 
         return msg;
     }
 
     @Override
-    public void insertFeedback(FeedbackDTO feedback) {
-      //  if ( feedback.getFullName() == null ||feedback.getEmail() == null
-      //     || feedback.getEmail().isEmpty() || feedback.getDescription() == null || feedback.getDescription().isEmpty()||feedback.getFullName().isEmpty()||feedback.getFullName() ==null
-      //  )
-     //   { throw new IllegalArgumentException("Feedback must have a Full Name, Email and a Description");
-    //   } //else {
-      //      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    public Optional<FeedbackDTO> findByFullName(int FullName) {
 
-
-          // if (feedback.getType() == FeedbackType.viewer) {
-         //       feedback.setId("VW" + timestamp.getTime());
-         //   } else {
-         //       feedback.setId("SRV" + timestamp.getTime());
-          //  }
-
-
-            fer.save(feedback);
-
-        }
-   //}
+        Optional<FeedbackDTO> sortFeedbacks = feedbackrepo.findById(FullName);
+        return sortFeedbacks;
+    }
 
     @Override
-   public void deleteFeedback(String FullName) throws IllegalAccessException {
-        if (FullName.isEmpty()) { throw new IllegalArgumentException("Username is not provided to delete the user");
-        }
+    public String dltByFullName(Integer fid) {
 
-       FeedbackDTO feedback = getFeedbackByFullname(FullName);
-        fer.delete(feedback);
-    }
-
-    private FeedbackDTO getFeedbackByFullname(String FullName) throws IllegalAccessException {
-        List<FeedbackDTO> feedbackDTOList1 = fer.findByFullname(FullName);
-
-        if (feedbackDTOList1 == null || feedbackDTOList1.size() == 0) {
-           throw new IllegalAccessException(FullName + ", Invalid Full Name");
-      }
-        return feedbackDTOList1.get(0);
-    }
+       String msg = null;
+      if (fid != null)
+        {
+            feedbackrepo.deleteById(fid
+            );
+            msg = "Successfully Deleted.";
+       }else
+        {
+            msg = "Deletion Error";
+       }
+        return msg;
+   }
 }
-
