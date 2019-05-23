@@ -35,7 +35,7 @@ public class feedbackimpl implements feedbackservices{
     public String updateFeedback(FeedbackDTO newfeedbackData) {
 
         String msg = null;
-        if(newfeedbackData.getfFullName() != null)
+        if(newfeedbackData.getFid()!= null)
         {
             feedbackrepo.save(newfeedbackData);
             msg = "Successfully Updated.";
@@ -60,8 +60,7 @@ public class feedbackimpl implements feedbackservices{
        String msg = null;
       if (fid != null)
         {
-            feedbackrepo.deleteById(fid
-            );
+            feedbackrepo.deleteById(fid);
             msg = "Successfully Deleted.";
        }else
         {
